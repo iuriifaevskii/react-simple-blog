@@ -3,7 +3,14 @@ import React, { Component } from 'react';
 export default class App extends Component {
   render() {
     return (
-      <div>React simple starter</div>
+      <div>
+        <p>Header Component </p>
+
+        {this.props.children}
+        
+        <p>Footer Component</p>
+      </div>
+      
     );
   }
 }
