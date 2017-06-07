@@ -13,7 +13,17 @@ class PostsIndex extends Component{
     //В данный момент у нас нет возможности посмотреть DOM элементы
     //
     
+    renderPosts(){
+        return this.props.posts.map((post) => 
+            <li className="list-group-item" key={post.id}>
+                <span className="pull-xs-right">{post.categories}</span>
+                <strong>{post.title}</strong>
+            </li>
+        );
+    }
+
     render(){
+        console.log(this.props.posts);
         return(
             <div>
                 <div className="text-xs-right">
@@ -21,7 +31,10 @@ class PostsIndex extends Component{
                         Add Post
                     </Link>
                 </div>
-                List of blogs
+                <h3>Posts</h3>
+                <ul className="list-group">
+                    {this.renderPosts()}
+                </ul>
             </div>
         );
     }
@@ -33,7 +46,11 @@ class PostsIndex extends Component{
 // }
 //export default connect(null,mapDispatchToProps)(PostsIndex);
 
-
+function mapStateToProps(state){
+    return{
+        posts : state.posts.all
+    };
+}
 
 //короткий спосіб (mapDispatchToProps можна не писати)
-export default connect(null,{fetchPosts})(PostsIndex); //fetchPosts замість{fetchPosts:fetchPosts}
+export default connect(mapStateToProps,{fetchPosts})(PostsIndex); //fetchPosts замість{fetchPosts:fetchPosts}
