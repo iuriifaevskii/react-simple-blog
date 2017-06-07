@@ -1,10 +1,26 @@
-import React,{ Component } from 'react';
+import React,{ Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import {createPost} from '../actions/index';
 import {Link} from 'react-router';
 
 class PostsNew extends Component {
+    static contextTypes = {
+        router: PropTypes.object
+    };//Щоб отримати в router свойство push
+    
+    onSubmit(props){
+        this.props.createPost(props)
+            .then( () => { 
+                //blog post has been created , navigate user to the index
+                //We navigate by calling this.context.router.push with the
+                //new path to navigate to.
+
+                this.context.router.push('/'); //якщо створило то відправляє на головну
+            });
+    }
+
     render(){
+
   //    //const { fields:{title,categories,content}, handleSubmit } = this.props;
         //те ж саме: 
         const handleSubmit = this.props.handleSubmit;
@@ -16,11 +32,10 @@ class PostsNew extends Component {
         //{...title}
         //formProps = {title} // => ...title
         //onChange = {title.onChange} 
-
   
-        //<form onSubmit={handleSubmit(//an action creator)}>   
+        //<form onSubmit={handleSubmit(//an action creator)}>
         return(
-            <form onSubmit={handleSubmit(this.props.createPost)}>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <h3>Create A New Post</h3>
                 <div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
                     <label>Title</label>
