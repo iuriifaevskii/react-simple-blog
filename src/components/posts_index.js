@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 //import { bindActionCreators } from 'redux';  //mapDispatchToProps немає бо ми упростили функцію, то це можна не писати
 import { fetchPosts } from '../actions/index';
+import { Link } from 'react-router';
 
 class PostsIndex extends Component{
     componentWillMount(){
@@ -14,7 +15,14 @@ class PostsIndex extends Component{
     
     render(){
         return(
-            <div>List of blogs</div>
+            <div>
+                <div className="text-xs-right">
+                    <Link to="/posts/new" className="btn btn-primary">
+                        Add Post
+                    </Link>
+                </div>
+                List of blogs
+            </div>
         );
     }
 }
