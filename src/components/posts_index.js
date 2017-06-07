@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+//import { bindActionCreators } from 'redux';  //mapDispatchToProps немає бо ми упростили функцію, то це можна не писати
+import { fetchPosts } from '../actions/index';
 
 class PostsIndex extends Component{
     componentWillMount(){
-        console.log('this would be a good time to call an action creater fetch posts');
+        this.props.fetchPosts();
     }
     //
     //componentWillMount - компонент будет примонтирован. 
@@ -16,4 +19,13 @@ class PostsIndex extends Component{
     }
 }
 
-export default PostsIndex;
+//довгий спосіб
+// function mapDispatchToProps(dispatch){
+//     return bindActionCreators({fetchPosts},dispatch);//{fetchPosts:fetchPosts}
+// }
+//export default connect(null,mapDispatchToProps)(PostsIndex);
+
+
+
+//короткий спосіб (mapDispatchToProps можна не писати)
+export default connect(null,{fetchPosts})(PostsIndex); //fetchPosts замість{fetchPosts:fetchPosts}
